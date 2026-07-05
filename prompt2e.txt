@@ -1,1 +1,1 @@
-devise test harness for device <device>
+devise rust test harness for device <device> to test wokwi custom chip
