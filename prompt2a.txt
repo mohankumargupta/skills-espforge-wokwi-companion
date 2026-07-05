@@ -1,1 +1,1 @@
-create rust test for esphome yaml for device <device>
+create rust test file called test.rs for esphome yaml for device <device>
