@@ -1,1 +1,0 @@
-Create wokwi diagram for device <device>

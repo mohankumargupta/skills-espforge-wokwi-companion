@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -x
 inputfile="$1"
+inputwithoutext="${inputfile%.txt}"
 device="$2"
-copyprompt="${inputfile%.txt}.text"
-logfile="${inputfile%.txt}.log"
-cleanlogfile="${inputfile%.txt}_clean.log"
+model=${3:-"nvidia/minimaxai/minimax-m3"}
+#model=${3:-"nvidia/z-ai/glm-5.2"}
+rm -rf "artifacts/${inputwithoutext}" || true
+copyprompt="${inputwithoutext}.text"
+logfile="${inputwithoutext}.log"
+cleanlogfile="${inputwithoutext}_clean.log"
 prompt=$(cat $inputfile | sd '<device>' $device)
-opencode run "$prompt" 2>&1 | tee "$logfile"
+opencode run -m "$model" "$prompt" 2>&1 | tee "$logfile"
 ansifilter -i $logfile -o $cleanlogfile
 cp $inputfile $copyprompt
