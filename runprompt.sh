@@ -6,10 +6,15 @@ device="$2"
 model=${3:-"nvidia/minimaxai/minimax-m3"}
 #model=${3:-"nvidia/z-ai/glm-5.2"}
 rm -rf "artifacts/${inputwithoutext}" || true
-copyprompt="${inputwithoutext}.text"
-logfile="${inputwithoutext}.log"
-cleanlogfile="${inputwithoutext}_clean.log"
+logdir="logs/${device}"
+mkdir -p $logdir
+copyprompt="${logdir}/${inputwithoutext}.text"
+logfile="${logdir}/${inputwithoutext}.log"
+cleanlogfile="${logdir}/${inputwithoutext}_clean.log"
 prompt=$(cat $inputfile | sd '<device>' $device)
 opencode run -m "$model" "$prompt" 2>&1 | tee "$logfile"
 ansifilter -i $logfile -o $cleanlogfile
-cp $inputfile $copyprompt
+echo "$prompt" >  $copyprompt
+
+
+

@@ -1,1 +1,1 @@
-create rust test file called test.rs for esphome yaml for device <device>
+Generates a deterministic narrator contract from a hardware chip specification for device <device>
